@@ -1,8 +1,37 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import { CssBaseline } from "@mui/material";
+import { Route, Switch } from "react-router-dom";
+import { Actors, Movieinfo, Movies, Profile, NavBar } from "./index";
+
+import useStyles from "./styles";
 
 const App = () => {
-  return <div>App</div>;
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <NavBar />
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Switch>
+          <Route exact path="/">
+            <Movies />
+          </Route>
+          <Route exact path="/movies/:id">
+            <Movieinfo />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
+          <Route exact path="/actor/:id">
+            <Actors />
+          </Route>
+        </Switch>
+      </main>
+    </div>
+  );
 };
 
 export default App;

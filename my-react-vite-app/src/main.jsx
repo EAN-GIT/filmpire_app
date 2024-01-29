@@ -1,7 +1,12 @@
-/* eslint-disable no-unused-vars */
 import ReactDOM from "react-dom";
 import React from "react";
 import App from "./components/app";
+import { BrowserRouter } from "react-router-dom";
 
 // eslint-disable-next-line react/no-deprecated
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
+);

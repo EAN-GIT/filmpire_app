@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { useTheme } from "@mui/styles";
 import useStyles from "./styles";
 import {  useGetGenreQuery } from "../../services/TMDB";
+import genreIcons from "../../assets/genres/index"
 
 const redLogo =
   "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
@@ -58,14 +59,14 @@ const Sidebar = ({ setMobileOpen }) => {
         return (
           <Link key={value} className={classes.links} to="/my-react-vite-app">
             <ListItem onClick={() => {}} button>
-              {/* <ListItemIcon>
+              <ListItemIcon>
                 <img
-                  src={redLogo}
-                  alt={`item ${label} logo`}
+                  src={genreIcons[label.toLowerCase()]}
+                  alt={`item ${value} logo`}
                   className={classes.genreImages}
                   height={18}
                 />
-              </ListItemIcon> */}
+              </ListItemIcon>
               <ListItemText primary={label} />
             </ListItem>
           </Link>
@@ -79,14 +80,14 @@ const Sidebar = ({ setMobileOpen }) => {
         return (
           <Link key={name} className={classes.links} to="/my-react-vite-app">
             <ListItem onClick={() => {}} button>
-              {/* <ListItemIcon>
+              <ListItemIcon>
                 <img
-                  src={redLogo}
+                  src={genreIcons[name.toLowerCase()]}
                   alt={`item ${name} logo`}
                   className={classes.genreImages}
                   height={18}
                 />
-              </ListItemIcon> */}
+              </ListItemIcon>
               <ListItemText primary={name} />
             </ListItem>
           </Link>

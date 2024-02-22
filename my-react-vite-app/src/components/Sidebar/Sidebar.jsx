@@ -13,6 +13,8 @@ import {
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/styles";
 import useStyles from "./styles";
+import {  useGetGenreQuery } from "../../services/TMDB";
+import genreIcons from "../../assets/genres/index"
 
 const redLogo =
   "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
@@ -35,17 +37,12 @@ const categories = [
   },
 ];
 
-const demoCategories = [
-  { label: "Action", value: "Action" },
-  { label: "Comedy", value: "Comedy" },
-  { label: "Drama", value: "Drama" },
-  { label: "Sci-Fi", value: "Sci-Fi" },
-  { label: "Horror", value: "Horror" },
-];
-
 const Sidebar = ({ setMobileOpen }) => {
   const theme = useTheme();
   const classes = useStyles();
+
+  const {data , isFetching} = useGetGenreQuery();
+  console.log(data)
 
   return (
     <>
@@ -62,14 +59,14 @@ const Sidebar = ({ setMobileOpen }) => {
         return (
           <Link key={value} className={classes.links} to="/my-react-vite-app">
             <ListItem onClick={() => {}} button>
-              {/* <ListItemIcon>
+              <ListItemIcon>
                 <img
-                  src={redLogo}
-                  alt={`item ${label} logo`}
+                  src={genreIcons[label.toLowerCase()]}
+                  alt={`item ${value} logo`}
                   className={classes.genreImages}
                   height={18}
                 />
-              </ListItemIcon> */}
+              </ListItemIcon>
               <ListItemText primary={label} />
             </ListItem>
           </Link>
@@ -77,19 +74,21 @@ const Sidebar = ({ setMobileOpen }) => {
       })}
       <Divider />
       <ListSubheader> Genre</ListSubheader>
-      {demoCategories.map(({ label, value }) => {
+      { isFetching ? ( <Box display="flex" justifyContent='center'>
+        <CircularProgress/>
+      </Box>) : data.genres.map(({ name, id }) => {
         return (
-          <Link key={value} className={classes.links} to="/my-react-vite-app">
+          <Link key={name} className={classes.links} to="/my-react-vite-app">
             <ListItem onClick={() => {}} button>
-              {/* <ListItemIcon>
+              <ListItemIcon>
                 <img
-                  src={redLogo}
-                  alt={`item ${label} logo`}
+                  src={genreIcons[name.toLowerCase()]}
+                  alt={`item ${name} logo`}
                   className={classes.genreImages}
                   height={18}
                 />
-              </ListItemIcon> */}
-              <ListItemText primary={label} />
+              </ListItemIcon>
+              <ListItemText primary={name} />
             </ListItem>
           </Link>
         );

@@ -1,0 +1,21 @@
+import React from "react";
+
+import useStyles from "./styles";
+import { Grid } from "@mui/material";
+import {Movie} from ".."
+
+const MovieList = ({ movies }) => {
+  const classes = useStyles();
+
+  return (
+    <Grid container className={classes.moviesContainer}>
+    <>
+    {movies.results.map((movie,i)=>{
+    return (<Movie key={i}  movie={movie} i={i}/>)
+    })}  
+ </>
+ </Grid> 
+  )
+};
+
+export default MovieList;

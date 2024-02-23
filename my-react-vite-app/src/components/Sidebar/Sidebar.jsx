@@ -15,6 +15,9 @@ import { useTheme } from "@mui/styles";
 import useStyles from "./styles";
 import {  useGetGenreQuery } from "../../services/TMDB";
 import genreIcons from "../../assets/genres/index"
+import { useDispatch , useSelector} from "react-redux";
+// action creator
+import {  selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 
 const redLogo =
   "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
@@ -40,6 +43,8 @@ const categories = [
 const Sidebar = ({ setMobileOpen }) => {
   const theme = useTheme();
   const classes = useStyles();
+// allows for data transfer to redux
+  const dispatch = useDispatch();
 
   const {data , isFetching} = useGetGenreQuery();
   console.log(data)
@@ -58,7 +63,8 @@ const Sidebar = ({ setMobileOpen }) => {
       {categories.map(({ label, value }) => {
         return (
           <Link key={value} className={classes.links} to="/my-react-vite-app">
-            <ListItem onClick={() => {}} button>
+            <ListItem onClick={() => dispatch(selectGenreOrCategory(value))} button>
+             {/* will travel to the stor then the associate reducer  */}
               <ListItemIcon>
                 <img
                   src={genreIcons[label.toLowerCase()]}
@@ -79,7 +85,8 @@ const Sidebar = ({ setMobileOpen }) => {
       </Box>) : data.genres.map(({ name, id }) => {
         return (
           <Link key={name} className={classes.links} to="/my-react-vite-app">
-            <ListItem onClick={() => {}} button>
+          <ListItem onClick={() => dispatch(selectGenreOrCategory(id))} button>
+             {/* will travel to the stor then the associate reducer  */}
               <ListItemIcon>
                 <img
                   src={genreIcons[name.toLowerCase()]}

@@ -13,8 +13,11 @@ import {
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/styles";
 import useStyles from "./styles";
-import {  useGetGenreQuery } from "../../services/TMDB";
-import genreIcons from "../../assets/genres/index"
+import { useGetGenreQuery } from "../../services/TMDB";
+import genreIcons from "../../assets/genres/index";
+import { useDispatch, useSelector } from "react-redux";
+// action creator
+import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 
 const redLogo =
   "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
@@ -40,9 +43,15 @@ const categories = [
 const Sidebar = ({ setMobileOpen }) => {
   const theme = useTheme();
   const classes = useStyles();
+  // allows for data transfer to redux
+  const dispatch = useDispatch();
 
-  const {data , isFetching} = useGetGenreQuery();
-  console.log(data)
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.currentGenreOrCategory
+  );
+  // selector selectwhich slice we want to get
+  const { data, isFetching } = useGetGenreQuery();
+  console.log(data);
 
   return (
     <>
@@ -54,45 +63,65 @@ const Sidebar = ({ setMobileOpen }) => {
         />
       </Link>
       <Divider />
-      <ListSubheader>Categories</ListSubheader>
-      {categories.map(({ label, value }) => {
-        return (
-          <Link key={value} className={classes.links} to="/my-react-vite-app">
-            <ListItem onClick={() => {}} button>
-              <ListItemIcon>
-                <img
-                  src={genreIcons[label.toLowerCase()]}
-                  alt={`item ${value} logo`}
-                  className={classes.genreImages}
-                  height={18}
-                />
-              </ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItem>
-          </Link>
-        );
-      })}
+      <List>
+        <ListSubheader>Categories</ListSubheader>
+        {categories.map(({ label, value }) => {
+          return (
+            <Link key={value} className={classes.links} to="/my-react-vite-app">
+              <ListItem
+                component="button"
+                onClick={() => dispatch(selectGenreOrCategory(value))}
+              >
+                {/* will travel to the stor then the associate reducer  */}
+                <ListItemIcon>
+                  <img
+                    src={genreIcons[label.toLowerCase()]}
+                    alt={`item ${value} logo`}
+                    className={classes.genreImages}
+                    height={18}
+                  />
+                </ListItemIcon>
+                <ListItemText primary={label} />
+              </ListItem>
+            </Link>
+          );
+        })}
+      </List>
       <Divider />
-      <ListSubheader> Genre</ListSubheader>
-      { isFetching ? ( <Box display="flex" justifyContent='center'>
-        <CircularProgress/>
-      </Box>) : data.genres.map(({ name, id }) => {
-        return (
-          <Link key={name} className={classes.links} to="/my-react-vite-app">
-            <ListItem onClick={() => {}} button>
-              <ListItemIcon>
-                <img
-                  src={genreIcons[name.toLowerCase()]}
-                  alt={`item ${name} logo`}
-                  className={classes.genreImages}
-                  height={18}
-                />
-              </ListItemIcon>
-              <ListItemText primary={name} />
-            </ListItem>
-          </Link>
-        );
-      })}
+      <List>
+        <ListSubheader> Genre</ListSubheader>
+        {isFetching ? (
+          <Box display="flex" justifyContent="center">
+            <CircularProgress />
+          </Box>
+        ) : (
+          data.genres.map(({ name, id }) => {
+            return (
+              <Link
+                key={name}
+                className={classes.links}
+                to="/my-react-vite-app"
+              >
+                <ListItem
+                  onClick={() => dispatch(selectGenreOrCategory(id))}
+                  component="button"
+                >
+                  {/* will travel to the stor then the associate reducer  */}
+                  <ListItemIcon>
+                    <img
+                      src={genreIcons[name.toLowerCase()]}
+                      alt={`item ${name} logo`}
+                      className={classes.genreImages}
+                      height={18}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary={name} />
+                </ListItem>
+              </Link>
+            );
+          })
+        )}
+      </List>
     </>
   );
 };

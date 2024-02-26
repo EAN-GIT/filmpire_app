@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   CircularProgress,
-  useMediaQuery,
   Typography,
   // Pagination,
 } from "@mui/material";
@@ -12,30 +11,37 @@ import { useGetMoviesQuery } from "../../services/TMDB";
 import { MovieList } from "..";
 
 const Movies = () => {
-  const { data, error , isFetching } = useGetMoviesQuery();
+  const [page, setPage] = useState(1)
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.currentGenreOrCategory
+  );
+  // const { data, error, isFetching } = useGetMoviesQuery({
+  //   genreIdOrCategoryName,page
+  // });
+  const { data, error, isFetching } = useGetMoviesQuery({genreIdOrCategoryName, page});
 
   console.log(data);
-  // handle fetching else the movies will be undefined 
-  if(isFetching){
+  // handle fetching else the movies will be undefined
+  if (isFetching) {
     return (
       // box = div
-      <Box display="flex" justifyContent='center'>
-        <CircularProgress  size="4rem"/>
+      <Box display="flex" justifyContent="center">
+        <CircularProgress size="4rem" />
       </Box>
-    )
+    );
   }
 
   // if the data is not available
-  if(!data.results.length){
-    return(
-      <Box display='flex' justifyContent='center' mt='20px'>
+  if (!data.results.length) {
+    return (
+      <Box display="flex" justifyContent="center" mt="20px">
         <Typography variant="h4">
-        No Movies that Match That Name...
+          No Movies that Match That Name...
           <br />
           Please Search For Somthing else...
         </Typography>
       </Box>
-    )
+    );
   }
 
   // if theere is n error

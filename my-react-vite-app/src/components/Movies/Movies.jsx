@@ -11,14 +11,18 @@ import { useGetMoviesQuery } from "../../services/TMDB";
 import { MovieList } from "..";
 
 const Movies = () => {
-  const [page, setPage] = useState(1)
-  const { genreIdOrCategoryName } = useSelector(
+  const [page, setPage] = useState(1);
+  const { genreIdOrCategoryName, searchQuery } = useSelector(
     (state) => state.currentGenreOrCategory
   );
   // const { data, error, isFetching } = useGetMoviesQuery({
   //   genreIdOrCategoryName,page
   // });
-  const { data, error, isFetching } = useGetMoviesQuery({genreIdOrCategoryName, page});
+  const { data, error, isFetching } = useGetMoviesQuery({
+    genreIdOrCategoryName,
+    page,
+    searchQuery,
+  });
 
   console.log(data);
   // handle fetching else the movies will be undefined
@@ -32,7 +36,7 @@ const Movies = () => {
   }
 
   // if the data is not available
-  if (!data.results.length) {
+  if (!data?.results?.length) {
     return (
       <Box display="flex" justifyContent="center" mt="20px">
         <Typography variant="h4">

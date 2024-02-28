@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import React from "react"; 
-import App from "./components/app";
+import App from "./components/app.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 

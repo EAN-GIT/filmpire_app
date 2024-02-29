@@ -48,8 +48,12 @@ export const tmdbApi = createApi({
         return `movie/popular?page=${page}&api_key=${tmdbApiKey}`;
       },
     }),
+//* Get Movie
+getMovie: builder.query({
+  query: (id) => `/movie/${id}?append_to_response=videos,credits&api_key=${tmdbApiKey}`,
+}),
   }),
 });
 
 //redux automatically creates hooks for each query
-export const { useGetMoviesQuery, useGetGenreQuery } = tmdbApi;
+export const { useGetMoviesQuery, useGetGenreQuery ,useGetMovieQuery} = tmdbApi;

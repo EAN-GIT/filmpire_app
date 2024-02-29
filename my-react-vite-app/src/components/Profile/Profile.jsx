@@ -16,6 +16,7 @@ const Profile = () => {
     window.location.href = '/'
   }
   return (<Box >
+    
     <Box display='flex' justifyContent="space-between">
       <Typography variant="h4" gutterBottom>
         My Profile

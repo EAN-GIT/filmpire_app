@@ -3,7 +3,7 @@ import {
   Link,
   Box,
   Grid,
-  Typography,
+  Typography,Modal,
   Rating,
   ButtonGroup,
   Button
@@ -11,7 +11,10 @@ import {
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useGetMovieQuery, useGetRecommendationsQuery} from '../../services/TMDB';
+import {
+  useGetMovieQuery,
+  useGetRecommendationsQuery
+} from '../../services/TMDB';
 import genreIcons from '../../assets/genres';
 
 import useStyles from './styles';
@@ -30,31 +33,24 @@ import {
   ArrowBack
 } from '@mui/icons-material';
 
-// import {
-//   ArrowBack,
-//   Favorite,
-//   FavoriteBorderOutlined,
-//   Language,
-//   PlusOne,
-//   Remove,
-//   Theaters
-// } from '@mui/icons-material'
 import MovieList from '../MovieList/MovieList';
+import { useState } from 'react';
 
 const Movieinfo = () => {
   const { id } = useParams();
   const { data, isFetching, error } = useGetMovieQuery(id);
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
   // allows for data transfer to redux
   const dispatch = useDispatch();
   console.log('movieinfoooooooooooo');
 
-
-  const {data:recommendations,isFetching:isRecommendationsFetching}= useGetRecommendationsQuery({movie_id:id,list:"/recommendations"})
+  const { data: recommendations, isFetching: isRecommendationsFetching } =
+    useGetRecommendationsQuery({ movie_id: id, list: '/recommendations' });
   const isMovieFavorited = true;
   const isMovieWatchlisted = false;
 
-  console.log(recommendations)
+  console.log(recommendations);
   if (isFetching) {
     return (
       <Box display='flex' justifyContent='center' alignItems='center'>
@@ -81,14 +77,17 @@ const Movieinfo = () => {
         item
         sm={12}
         lg={4}
-        style={{ display: 'flex', marginBottom: '30px',alignSelf:'flex-start' }}
+        style={{
+          display: 'flex',
+          marginBottom: '30px',
+          alignSelf: 'flex-start'
+        }}
       >
         <img
           className={classes.poster}
           src={`https://image.tmdb.org/t/p/w500/${data?.poster_path}`}
           alt={data?.title}
         />
-        
       </Grid>
 
       <Grid item container direction='column' lg={7}>
@@ -150,7 +149,7 @@ const Movieinfo = () => {
         </Typography>
 
         {/* CAST PICTURES  */}
-        <Grid item container spacing={2} >
+        <Grid item container spacing={2}>
           {data &&
             data.credits.cast
               .map(
@@ -250,13 +249,30 @@ const Movieinfo = () => {
         <Typography variant='h3' gutterBottom align='center'>
           You might also like
         </Typography>
-         {/* loop through the recoommended movies  */}
+        {/* loop through the recoommended movies  */}
         {recommendations ? (
           <MovieList movies={recommendations} numberOfMovies={12} />
         ) : (
           <Box>Sorry, nothing was found.</Box>
         )}
       </Box>
+      <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        {data?.videos?.results?.length > 0 && (
+          <iframe
+            autoPlay
+            className={classes.video}
+            style={{ border: 'none' }} 
+            title='Trailer'
+            src={`https:www.youtube.com/embed/${data.videos.results[0].key}`}
+            allow='autoplay'
+          />
+        )}
+      </Modal>
     </Grid>
   );
 };

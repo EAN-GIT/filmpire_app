@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useStyles from './styles';
-import { Grid } from '@mui/material';
+import { Grid, Modal } from '@mui/material';
 import { Movie } from '..';
 
 const MovieList = ({ movies ,numberOfMovies }) => {
@@ -15,6 +15,7 @@ const MovieList = ({ movies ,numberOfMovies }) => {
         })}
       </>
     </Grid>
+    
   );
 };
 

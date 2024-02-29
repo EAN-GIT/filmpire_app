@@ -11,7 +11,7 @@ import {
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useGetMovieQuery } from '../../services/TMDB';
+import { useGetMovieQuery, useGetRecommendationsQuery} from '../../services/TMDB';
 import genreIcons from '../../assets/genres';
 
 import useStyles from './styles';
@@ -49,8 +49,12 @@ const Movieinfo = () => {
   const dispatch = useDispatch();
   console.log('movieinfoooooooooooo');
 
+
+  const {data:recommendations,isFetching:isRecommendationsFetching}= useGetRecommendationsQuery({movie_id:id,list:"/recommendations"})
   const isMovieFavorited = true;
   const isMovieWatchlisted = false;
+
+  console.log(recommendations)
   if (isFetching) {
     return (
       <Box display='flex' justifyContent='center' alignItems='center'>
@@ -242,16 +246,17 @@ const Movieinfo = () => {
           </div>
         </Grid>
       </Grid>
-      {/* <Box marginTop='5rem' width='100%'>
+      <Box marginTop='5rem' width='100%'>
         <Typography variant='h3' gutterBottom align='center'>
           You might also like
         </Typography>
+         {/* loop through the recoommended movies  */}
         {recommendations ? (
           <MovieList movies={recommendations} numberOfMovies={12} />
         ) : (
           <Box>Sorry, nothing was found.</Box>
         )}
-      </Box> */}
+      </Box>
     </Grid>
   );
 };

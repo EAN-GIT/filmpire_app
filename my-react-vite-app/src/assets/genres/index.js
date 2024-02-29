@@ -45,5 +45,5 @@ export default {
 
   popular,
   'top rated': topRated,
-  upcoming,
+  upcoming
 };

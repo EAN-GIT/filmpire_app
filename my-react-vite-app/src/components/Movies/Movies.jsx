@@ -1,14 +1,14 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   CircularProgress,
-  Typography,
+  Typography
   // Pagination,
-} from "@mui/material";
-import { useSelector } from "react-redux";
-import { useGetMoviesQuery } from "../../services/TMDB";
-import { MovieList } from "..";
+} from '@mui/material';
+import { useSelector } from 'react-redux';
+import { useGetMoviesQuery } from '../../services/TMDB';
+import { MovieList } from '..';
 
 const Movies = () => {
   const [page, setPage] = useState(1);
@@ -21,7 +21,7 @@ const Movies = () => {
   const { data, error, isFetching } = useGetMoviesQuery({
     genreIdOrCategoryName,
     page,
-    searchQuery,
+    searchQuery
   });
 
   console.log(data);
@@ -29,8 +29,8 @@ const Movies = () => {
   if (isFetching) {
     return (
       // box = div
-      <Box display="flex" justifyContent="center">
-        <CircularProgress size="4rem" />
+      <Box display='flex' justifyContent='center'>
+        <CircularProgress size='4rem' />
       </Box>
     );
   }
@@ -38,8 +38,8 @@ const Movies = () => {
   // if the data is not available
   if (!data?.results?.length) {
     return (
-      <Box display="flex" justifyContent="center" mt="20px">
-        <Typography variant="h4">
+      <Box display='flex' justifyContent='center' mt='20px'>
+        <Typography variant='h4'>
           No Movies that Match That Name...
           <br />
           Please Search For Somthing else...
@@ -49,7 +49,7 @@ const Movies = () => {
   }
 
   // if theere is n error
-  if (error) return "An Error Has Occured...";
+  if (error) return 'An Error Has Occured...';
 
   return (
     <div>

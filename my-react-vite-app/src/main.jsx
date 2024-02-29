@@ -1,13 +1,13 @@
-import ReactDOM from "react-dom";
-import React from "react"; 
-import App from "./components/app.jsx";
-import { BrowserRouter } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import ReactDOM from 'react-dom';
+import React from 'react';
+import App from './components/app.jsx';
+import { BrowserRouter } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 
 // import store created in the app /
-import store from "./app/store";
+import store from './app/store';
 const theme = createTheme({});
 
 // eslint-disable-next-line react/no-deprecated
@@ -21,5 +21,5 @@ ReactDOM.render(
     </ThemeProvider>
   </Provider>,
 
-  document.getElementById("root")
+  document.getElementById('root')
 );

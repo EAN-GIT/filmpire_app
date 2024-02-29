@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
 import {
   Divider,
@@ -8,36 +8,36 @@ import {
   ListItemIcon,
   Box,
   CircularProgress,
-  ListItemText,
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import { useTheme } from "@mui/styles";
-import useStyles from "./styles";
-import { useGetGenreQuery } from "../../services/TMDB";
-import genreIcons from "../../assets/genres/index";
-import { useDispatch, useSelector } from "react-redux";
+  ListItemText
+} from '@mui/material';
+import { Link } from 'react-router-dom';
+import { useTheme } from '@mui/styles';
+import useStyles from './styles';
+import { useGetGenreQuery } from '../../services/TMDB';
+import genreIcons from '../../assets/genres/index';
+import { useDispatch, useSelector } from 'react-redux';
 // action creator
-import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
+import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 
 const redLogo =
-  "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
+  'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
 
 const blueLogo =
-  "https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png";
+  'https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
 
 const categories = [
   {
-    label: "Popular",
-    value: "popular",
+    label: 'Popular',
+    value: 'popular'
   },
   {
-    label: "Top Rated",
-    value: "top_rated",
+    label: 'Top Rated',
+    value: 'top_rated'
   },
   {
-    label: "Upcoming",
-    value: "upcoming",
-  },
+    label: 'Upcoming',
+    value: 'upcoming'
+  }
 ];
 
 const Sidebar = ({ setMobileOpen }) => {
@@ -55,11 +55,11 @@ const Sidebar = ({ setMobileOpen }) => {
 
   return (
     <>
-      <Link to="/" className={classes.imageLink}>
+      <Link to='/' className={classes.imageLink}>
         <img
           className={classes.image}
-          src={theme.palette.mode === "light" ? redLogo : blueLogo}
-          alt="Filmpire logo"
+          src={theme.palette.mode === 'light' ? redLogo : blueLogo}
+          alt='Filmpire logo'
         />
       </Link>
       <Divider />
@@ -67,9 +67,9 @@ const Sidebar = ({ setMobileOpen }) => {
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }) => {
           return (
-            <Link key={value} className={classes.links} to="/my-react-vite-app">
+            <Link key={value} className={classes.links} to='/my-react-vite-app'>
               <ListItem
-                component="button"
+                component='button'
                 onClick={() => dispatch(selectGenreOrCategory(value))}
               >
                 {/* will travel to the stor then the associate reducer  */}
@@ -91,7 +91,7 @@ const Sidebar = ({ setMobileOpen }) => {
       <List>
         <ListSubheader> Genre</ListSubheader>
         {isFetching ? (
-          <Box display="flex" justifyContent="center">
+          <Box display='flex' justifyContent='center'>
             <CircularProgress />
           </Box>
         ) : (
@@ -100,11 +100,11 @@ const Sidebar = ({ setMobileOpen }) => {
               <Link
                 key={name}
                 className={classes.links}
-                to="/my-react-vite-app"
+                to='/my-react-vite-app'
               >
                 <ListItem
                   onClick={() => dispatch(selectGenreOrCategory(id))}
-                  component="button"
+                  component='button'
                 >
                   {/* will travel to the stor then the associate reducer  */}
                   <ListItemIcon>

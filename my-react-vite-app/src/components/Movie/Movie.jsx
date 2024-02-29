@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import useStyles from "./styles";
-import { Grid, Grow, Rating, Tooltip, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import useStyles from './styles';
+import { Grid, Grow, Rating, Tooltip, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Movie = ({ movie, i }) => {
   const classes = useStyles();
@@ -17,16 +17,14 @@ const Movie = ({ movie, i }) => {
               src={
                 movie.poster_path
                   ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                  : "https://www.fillmurray.com/200/300"
+                  : 'https://www.fillmurray.com/200/300'
               }
             />
           }
-          <Typography className={classes.title} variant="h5">
+          <Typography className={classes.title} variant='h5'>
             {movie.title}
           </Typography>
-          <Tooltip disableTouchListener
-           title={`${movie.vote_average} /10`}
-           >
+          <Tooltip disableTouchListener title={`${movie.vote_average} /10`}>
             <div>
               <Rating readOnly value={movie.vote_average / 2} precision={0.1} />
             </div>

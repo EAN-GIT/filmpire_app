@@ -1,6 +1,6 @@
 import {
   CircularProgress,
-  Link,
+  
   Box,
   Grid,
   Typography,Modal,
@@ -8,6 +8,8 @@ import {
   ButtonGroup,
   Button
 } from '@mui/material';
+import { Link } from 'react-router-dom';
+
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -43,14 +45,12 @@ const Movieinfo = () => {
   const [open, setOpen] = useState(false);
   // allows for data transfer to redux
   const dispatch = useDispatch();
-  console.log('movieinfoooooooooooo');
 
   const { data: recommendations, isFetching: isRecommendationsFetching } =
     useGetRecommendationsQuery({ movie_id: id, list: '/recommendations' });
   const isMovieFavorited = true;
   const isMovieWatchlisted = false;
 
-  console.log(recommendations);
   if (isFetching) {
     return (
       <Box display='flex' justifyContent='center' alignItems='center'>
@@ -69,7 +69,6 @@ const Movieinfo = () => {
   const addToFavorites = () => {};
 
   const addToWatchlist = () => {};
-
   return (
     <Grid container className={classes.containerSpaceAround}>
       {/* // movie img */}

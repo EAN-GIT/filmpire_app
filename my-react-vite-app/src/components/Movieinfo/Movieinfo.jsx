@@ -79,7 +79,8 @@ const Movieinfo = () => {
         style={{
           display: 'flex',
           marginBottom: '30px',
-          alignSelf: 'flex-start'
+          // alignSelf: 'flex-start'
+          justifyContent:'center'
         }}
       >
         <img

@@ -12,6 +12,10 @@ const Search = () => {
   const [query, setQuery] = useState('');
   const dispatch = useDispatch();
 
+  const location = useLocation();
+
+  if(location.pathname !== '/') return null;
+
   // dispatch action to get the coreesponding movies
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {

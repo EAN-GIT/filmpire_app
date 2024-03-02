@@ -2,7 +2,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import.meta.env.REACT_APP_TMDB_KEY;
 const tmdbApiKey = 'd1df4024678d5579405a85ef7d474ae7';
-console.log({ tmdbApiKey });
 
 export const tmdbApi = createApi({
   reducerPath: 'tmdbApi',
@@ -54,19 +53,26 @@ export const tmdbApi = createApi({
         `/movie/${id}?append_to_response=videos,credits&api_key=${tmdbApiKey}`
     }),
     //* Get user specific lists
+    // to know which movie we addes to favoritw=es
+    getList: builder.query({
+      query: ({ listName, accountId, sessionId, page }) =>
+        `/account/${accountId}/${listName}?api_key=${tmdbApiKey}&session_id=${sessionId}&page=${page}`
+    }),
+
     getRecommendations: builder.query({
       query: ({ movie_id, list }) =>
         `/movie/${movie_id}/${list}?api_key=${tmdbApiKey}`
     }),
     //* Get ator details
     getActorsDetails: builder.query({
-      query: (id) => `person/${id}?api_key=${tmdbApiKey}`,
+      query: (id) => `person/${id}?api_key=${tmdbApiKey}`
     }),
 
     //* get movies by actor id
     getMoviesByActorId: builder.query({
-      query: ({ id, page }) => `/discover/movie?with_cast=${id}&page=${page}&api_key=${tmdbApiKey}`,
-    }),
+      query: ({ id, page }) =>
+        `/discover/movie?with_cast=${id}&page=${page}&api_key=${tmdbApiKey}`
+    })
   })
 });
 
@@ -75,5 +81,8 @@ export const {
   useGetMoviesQuery,
   useGetGenreQuery,
   useGetMovieQuery,
-  useGetRecommendationsQuery,useGetActorsDetailsQuery, useGetMoviesByActorIdQuery
+  useGetRecommendationsQuery,
+  useGetActorsDetailsQuery,
+  useGetMoviesByActorIdQuery,
+  useGetListQuery
 } = tmdbApi;

@@ -69,7 +69,7 @@ const Sidebar = ({ setMobileOpen }) => {
           return (
             <Link key={value} className={classes.links} to='/my-react-vite-app'>
               <ListItem
-                component='button'
+                // component='button'
                 onClick={() => dispatch(selectGenreOrCategory(value))}
               >
                 {/* will travel to the stor then the associate reducer  */}
@@ -77,7 +77,7 @@ const Sidebar = ({ setMobileOpen }) => {
                   <img
                     src={genreIcons[label.toLowerCase()]}
                     alt={`item ${value} logo`}
-                    className={classes.genreImages}
+                    className={classes.genreImage}
                     height={18}
                   />
                 </ListItemIcon>
@@ -104,14 +104,14 @@ const Sidebar = ({ setMobileOpen }) => {
               >
                 <ListItem
                   onClick={() => dispatch(selectGenreOrCategory(id))}
-                  component='button'
+                  // component='button'
                 >
                   {/* will travel to the stor then the associate reducer  */}
                   <ListItemIcon>
                     <img
                       src={genreIcons[name.toLowerCase()]}
                       alt={`item ${name} logo`}
-                      className={classes.genreImages}
+                      className={classes.genreImage}
                       height={18}
                     />
                   </ListItemIcon>

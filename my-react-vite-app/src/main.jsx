@@ -7,17 +7,17 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Provider } from 'react-redux';
 // import store created in the app /
 import store from './app/store';
-const theme = createTheme({});
+import ToggleColorModeProvider from './utils/ToggleColorMode.jsx';
 
 // eslint-disable-next-line react/no-deprecated
 ReactDOM.render(
   // wrap to mak ethe store availble to evrry comp in the app
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
+    <ToggleColorModeProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </ThemeProvider>
+    </ToggleColorModeProvider>
   </Provider>,
 
   document.getElementById('root')

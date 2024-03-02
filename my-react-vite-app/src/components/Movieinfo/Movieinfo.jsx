@@ -1,19 +1,21 @@
 import {
   CircularProgress,
-  
   Box,
   Grid,
-  Typography,Modal,
+  Typography,
+  Modal,
   Rating,
   ButtonGroup,
   Button
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 import {
+  useGetListQuery,
   useGetMovieQuery,
   useGetRecommendationsQuery
 } from '../../services/TMDB';
@@ -38,18 +40,50 @@ import {
 import MovieList from '../MovieList/MovieList';
 import { useState } from 'react';
 
+const tmdbApiKey = 'd1df4024678d5579405a85ef7d474ae7'
+
 const Movieinfo = () => {
+  const { user } = useSelector((state) => state.user);
   const { id } = useParams();
-  const { data, isFetching, error } = useGetMovieQuery(id);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   // allows for data transfer to redux
   const dispatch = useDispatch();
 
+  const { data, isFetching, error } = useGetMovieQuery(id);
+  // to know id themovie is favorited or watchlisted
+  const { data: favoriteMovies } = useGetListQuery({
+    listName: 'favorite/movies',
+    accountId: user.id,
+    sessionId: localStorage.getItem('session_id'),
+    page: 1
+  });
+
+  const { data: watchlistMovies } = useGetListQuery({
+    listName: 'watchlist/movies',
+    accountId: user.id,
+    sessionId: localStorage.getItem('session_id'),
+    page: 1
+  });
   const { data: recommendations, isFetching: isRecommendationsFetching } =
     useGetRecommendationsQuery({ movie_id: id, list: '/recommendations' });
-  const isMovieFavorited = true;
-  const isMovieWatchlisted = false;
+
+  // to know id themovie is favorited or watchlisted
+  // !!{} -> false -> true
+  useEffect(() => {
+    setIsMovieFavorited(
+      !!favoriteMovies?.results?.find((movie) => movie?.id === data?.id)
+    );
+  }, [favoriteMovies, data]);
+
+  useEffect(() => {
+    setIsMovieWatchlisted(
+      !!watchlistMovies?.results?.find((movie) => movie?.id === data?.id)
+    );
+  }, [watchlistMovies, data]);
+
+  const [isMovieFavorited, setIsMovieFavorited] = useState(false);
+  const [isMovieWatchlisted, setIsMovieWatchlisted] = useState(false);
 
   if (isFetching) {
     return (
@@ -66,9 +100,34 @@ const Movieinfo = () => {
       </Box>
     );
   }
-  const addToFavorites = () => {};
 
-  const addToWatchlist = () => {};
+  //"Fix the process.env being undefined"
+
+  // console.log(process.env.REACT_APP_TMDB_KEY)
+  // we using a api request here because we donet need the info store in global state like reux allows us
+  const addToFavorites = async () => {
+    await axios.post(
+      `https://api.themoviedb.org/3/account/${user.id}/favorite?api_key=${tmdbApiKey}&session_id=${localStorage.getItem('session_id')}`,
+      {
+        media_type: 'movie',
+        media_id: id,
+        favorite: !isMovieFavorited
+      }
+    );
+    setIsMovieFavorited((prev) => !prev);
+  };
+
+  const addToWatchlist = async () => {
+    await axios.post(
+      `https://api.themoviedb.org/3/account/${user.id}/watchlist?api_key=${tmdbApiKey}&session_id=${localStorage.getItem('session_id')}`,
+      {
+        media_type: 'movie',
+        media_id: id,
+        watchlist: !isMovieWatchlisted
+      }
+    );
+    setIsMovieWatchlisted((prev) => !prev);
+  };
   return (
     <Grid container className={classes.containerSpaceAround}>
       {/* // movie img */}
@@ -80,7 +139,7 @@ const Movieinfo = () => {
           display: 'flex',
           marginBottom: '30px',
           // alignSelf: 'flex-start'
-          justifyContent:'center'
+          justifyContent: 'center'
         }}
       >
         <img
@@ -266,7 +325,7 @@ const Movieinfo = () => {
           <iframe
             autoPlay
             className={classes.video}
-            style={{ border: 'none' }} 
+            style={{ border: 'none' }}
             title='Trailer'
             src={`https:www.youtube.com/embed/${data.videos.results[0].key}`}
             allow='autoplay'

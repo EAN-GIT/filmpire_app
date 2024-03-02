@@ -1,12 +1,37 @@
 import { ExitToApp } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { RatedCards } from '..';
 
+import {
+  useGetListQuery,
+ 
+} from '../../services/TMDB';
 const Profile = () => {
   const { user } = useSelector((state) => state.user);
 
-  const favoriteMovies = [];
+    // refecth to help reload the page after actin chnage
+  const { data: favoriteMovies, refetch:refetchFavorites } = useGetListQuery({
+      listName: 'favorite/movies',
+      accountId: user.id,
+      sessionId: localStorage.getItem('session_id'),
+      page: 1
+    });
+  
+    const { data: watchlistMovies, refetch:refetchWatchlisted } = useGetListQuery({
+      listName: 'watchlist/movies',
+      accountId: user.id,
+      sessionId: localStorage.getItem('session_id'),
+      page: 1
+    });
+
+    // tells redux to call changes so ythe page is always u to date
+    useEffect(() => {
+     refetchWatchlisted();
+     refetchFavorites();
+    }, [])
+    
 
   const logout = () => {
     // clear the local storage
@@ -25,12 +50,15 @@ const Profile = () => {
           Logout &nbsp; <ExitToApp />
         </Button>
       </Box>
-      {!favoriteMovies.length ? (
+      {!favoriteMovies?.results?.length && !watchlistMovies?.results?.length ? (
         <Typography variant='h5'>
           Add favorite or watchlist a movie to see them here!
         </Typography>
       ) : (
-        <Box>FAVORITE MOVIES</Box>
+        <Box> 
+          <RatedCards title='Favorite Movies' data={favoriteMovies}/>
+          <RatedCards title='Watchlist' data={watchlistMovies}/>
+        </Box>
       )}
     </Box>
   );

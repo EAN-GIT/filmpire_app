@@ -65,7 +65,6 @@ const Movieinfo = () => {
     sessionId: localStorage.getItem('session_id'),
     page: 1
   });
-  console.log({favoriteMovies,watchlistMovies})
   const { data: recommendations, isFetching: isRecommendationsFetching } =
     useGetRecommendationsQuery({ movie_id: id, list: '/recommendations' });
 

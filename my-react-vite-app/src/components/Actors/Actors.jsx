@@ -43,8 +43,8 @@ const Actors = () => {
   console.log({ ddd: data });
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid item lg={5} xl={4}>
+      <Grid container spacing={3} xs={{padding:'4px'}}>
+        <Grid item lg={5} xl={4} >
           <img
             className={classes.image}
             src={`https://image.tmdb.org/t/p/w780/${data?.profile_path}`}
@@ -58,7 +58,8 @@ const Actors = () => {
           style={{
             display: 'flex',
             justifyContent: 'center',
-            flexDirection: 'column'
+            flexDirection: 'column', 
+            margin:'2px'
           }}
         >
           <Typography gutterBottom variant='h2'>

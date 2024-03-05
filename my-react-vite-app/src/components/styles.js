@@ -8,7 +8,7 @@ export default makeStyles(() => ({
   content: {
     flexGrow: '1',
     padding: '2em 0',
-    // width:'100%'
+    width:'100%'
   },
   toolbar: {
     height: '70px'

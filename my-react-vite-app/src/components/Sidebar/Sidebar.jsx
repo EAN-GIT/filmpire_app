@@ -51,8 +51,12 @@ const Sidebar = ({ setMobileOpen }) => {
   );
   // selector selectwhich slice we want to get
   const { data, isFetching } = useGetGenreQuery();
-  console.log(data);
 
+
+  // so that the side cose after clicking on an option
+  useEffect(()=>{
+    setMobileOpen(false)
+  },[genreIdOrCategoryName])
   return (
     <>
       <Link to='/' className={classes.imageLink}>

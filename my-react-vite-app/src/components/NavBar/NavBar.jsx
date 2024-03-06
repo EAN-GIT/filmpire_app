@@ -104,8 +104,7 @@ const NavBar = () => {
                   style={{ width: 30, height: 30 }}
                   alt='Profile'
                   src={
-                    // eslint-disable-next-line max-len
-                    'https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Ffreepng%2Fuser-avatar-placeholder-black_6796227.html&psig=AOvVaw10grANKYJs17_f2M7JBDMD&ust=1706624464940000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCLD-4YrngoQDFQAAAAAdAAAAABAD'
+                    `https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar_path}`
                   }
                 />
               </Button>

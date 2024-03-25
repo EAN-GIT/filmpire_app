@@ -110,7 +110,10 @@ const NavBar = () => {
               </Button>
             )}
           </div>
+          <div className={classes.searchMobile}>
+
           {isMobile && <Search />}
+          </div>
         </Toolbar>
       </AppBar>
       <div>

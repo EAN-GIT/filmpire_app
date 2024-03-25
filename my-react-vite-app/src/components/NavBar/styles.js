@@ -37,5 +37,9 @@ export default makeStyles((theme) => ({
       color: 'white !important',
       textDecoration: 'none'
     }
+  },
+  searchMobile:{
+    marginLeft:'auto',
+    marginRight:'auto'
   }
 }));

@@ -40,7 +40,7 @@ import {
 import MovieList from '../MovieList/MovieList';
 import { useState } from 'react';
 
-const tmdbApiKey = 'd1df4024678d5579405a85ef7d474ae7'
+const tmdbApiKey = 'd1df4024678d5579405a85ef7d474ae7';
 
 const Movieinfo = () => {
   const { user } = useSelector((state) => state.user);
@@ -138,7 +138,7 @@ const Movieinfo = () => {
         style={{
           display: 'flex',
           marginBottom: '30px',
-          // alignSelf: 'flex-start'
+          // alignSelf: 'center',
           justifyContent: 'center'
         }}
       >

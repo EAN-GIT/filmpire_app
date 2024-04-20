@@ -99,7 +99,7 @@ const Sidebar = ({ setMobileOpen }) => {
             <CircularProgress />
           </Box>
         ) : (
-          data.genres.map(({ name, id }) => {
+          data?.genres?.map(({ name, id }) => {
             return (
               <Link
                 key={name}

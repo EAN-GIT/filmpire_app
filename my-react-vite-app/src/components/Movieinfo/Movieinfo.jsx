@@ -40,7 +40,7 @@ import {
 import MovieList from '../MovieList/MovieList';
 import { useState } from 'react';
 
-const tmdbApiKey = 'd1df4024678d5579405a85ef7d474ae7';
+const tmdbApiKey = import.meta.env.REACT_APP_TMDB_KEY
 
 const Movieinfo = () => {
   const { user } = useSelector((state) => state.user);
@@ -103,7 +103,7 @@ const Movieinfo = () => {
 
   //"Fix the process.env being undefined"
 
-  // console.log(process.env.REACT_APP_TMDB_KEY)
+  console.log(import.meta.env.REACT_APP_TMDB_KEY)
   // we using a api request here because we donet need the info store in global state like reux allows us
   const addToFavorites = async () => {
     await axios.post(

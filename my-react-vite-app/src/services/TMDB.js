@@ -1,7 +1,10 @@
 // all the call to the TMDB api will be done here
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import.meta.env.REACT_APP_TMDB_KEY;
-const tmdbApiKey = 'd1df4024678d5579405a85ef7d474ae7';
+const tmdbApiKey = import.meta.env.VITE_REACT_APP_TMDB_KEY;
+console.log({"here":tmdbApiKey});
+// d1df4024678d5579405a85ef7d474ae7 
+
 
 export const tmdbApi = createApi({
   reducerPath: 'tmdbApi',

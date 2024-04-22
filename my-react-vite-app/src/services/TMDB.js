@@ -3,7 +3,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import.meta.env.REACT_APP_TMDB_KEY;
 const tmdbApiKey = import.meta.env.VITE_REACT_APP_TMDB_KEY;
 console.log({"here":tmdbApiKey});
-// d1df4024678d5579405a85ef7d474ae7 
 
 
 export const tmdbApi = createApi({
@@ -26,14 +25,13 @@ export const tmdbApi = createApi({
         //* Get movies by categories
 
         console.log({ genreIdOrCategoryName, page });
-        console.log('here');
 
         if (
           genreIdOrCategoryName &&
           typeof genreIdOrCategoryName === 'string'
         ) {
-          console.log('string');
-          return `movie/${genreIdOrCategoryName}&page=${page}&api_key=${tmdbApiKey}`;
+          // 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1' \
+          return `movie/${genreIdOrCategoryName}?page=${page}&api_key=${tmdbApiKey}`;
         }
 
         //* Get movies by genre

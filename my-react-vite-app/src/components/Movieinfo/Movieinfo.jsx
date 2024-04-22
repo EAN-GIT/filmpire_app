@@ -40,7 +40,7 @@ import {
 import MovieList from '../MovieList/MovieList';
 import { useState } from 'react';
 
-const tmdbApiKey = import.meta.env.REACT_APP_TMDB_KEY
+const tmdbApiKey = import.meta.env.VITE_REACT_APP_TMDB_KEY
 
 const Movieinfo = () => {
   const { user } = useSelector((state) => state.user);

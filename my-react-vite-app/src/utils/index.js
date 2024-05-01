@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //! env not loading variables
-const tmdbApiKey = 'd1df4024678d5579405a85ef7d474ae7';
+const tmdbApiKey = import.meta.env.VITE_REACT_APP_TMDB_KEY
 
 // create an instance of axioscall
 export const moviesApi = axios.create({

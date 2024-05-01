@@ -1,45 +1,77 @@
+// import { makeStyles } from '@mui/styles';
+
+// const drawerWidth = 240;
+
+// export default makeStyles((theme) => ({
+//   toolbar: {
+//     height: '80px',
+//     display: 'flex',
+//     justifyContent: 'space-between',
+//     marginLeft: '240px', // Keeps the toolbar content from being aligned at the left edge
+//     [theme.breakpoints.down('sm')]: {
+//       // All styles here will be applied for mobile devices
+//       marginLeft: '0', // Reset margin for smaller screens
+//       flexWrap: 'wrap' // Allows content to wrap when the screen size is reduced
+//     }
+//   },
+//   menuButton: {
+//     marginRight: theme.spacing(2), // Adds spacing between the menu button and other elements
+//     [theme.breakpoints.up('sm')]: {
+//       display: 'none' // Hides the menu button on larger screens
+//     }
+//   },
+//   drawer: {
+//     [theme.breakpoints.up('sm')]: {
+//       width: drawerWidth,
+//       flexShrink: 0
+//     }
+//   },
+//   drawerPaper: {
+//     width: drawerWidth
+//   },
+//   linkButton: {
+//     '&:hover': {
+//       color: 'white !important',
+//       textDecoration: 'none'
+//     }
+//   }
+// }));
+
+
 import { makeStyles } from '@mui/styles';
 
 const drawerWidth = 240;
 
 export default makeStyles((theme) => ({
-  //   to be able to use theme wrap the entire application with it
   toolbar: {
     height: '80px',
     display: 'flex',
-    marginLeft: '240px',
     justifyContent: 'space-between',
+    marginLeft: '240px',
     [theme.breakpoints.down('sm')]: {
-      // all styles here will be applied to mobile
-      marginLeft: '0',
-      flexWrap: 'wrap'
-    }
+      marginLeft: 0,
+      flexWrap: 'wrap',
+    },
   },
   menuButton: {
-    marginRight: theme.spacing(2), // special mui function for unifor spacing
+    marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-      // all styles here will be applied to large screens not mobile
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   drawer: {
-    //applied to large screens
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
-      flexShrink: 0
-    }
+      flexShrink: 0,
+    },
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   linkButton: {
     '&:hover': {
       color: 'white !important',
-      textDecoration: 'none'
-    }
+      textDecoration: 'none',
+    },
   },
-  searchMobile:{
-    marginLeft:'auto',
-    marginRight:'auto'
-  }
 }));

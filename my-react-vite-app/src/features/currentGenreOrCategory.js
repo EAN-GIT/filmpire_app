@@ -15,7 +15,8 @@ export const genreOrCategory = createSlice({
       // Update the genreIdOrCategoryName state with the payload received from the action
       state.genreIdOrCategoryName = action.payload;
       // saving data  to store
-      console.log(action.payload);
+      console.log({cat:action.payload});
+
       state.searchQuery = '';
     },
     searchMovie: (state, action) => {

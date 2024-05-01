@@ -69,31 +69,32 @@ const NavBar = () => {
 
   return (
     <>
-      <AppBar position='fixed'>
+ 
+ <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
           {isMobile && (
             <IconButton
-              color='inherit'
-              edge='start'
+              color="inherit"
+              edge="start"
               style={{ outline: 'none' }}
-              onClick={() => setMobileOpen((prev) => !prev)}
+              onClick={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
               className={classes.menuButton}
             >
               <Menu />
             </IconButton>
           )}
-          <IconButton color='inherit' sx={{ ml: 1 }} onClick={colorMode.toggleColorMode}>
+          <IconButton color="inherit" sx={{ ml: 1 }} onClick={colorMode.toggleColorMode}>
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
           {!isMobile && <Search />}
           <div>
             {!isAuthenticated ? (
-              <Button color='inherit' onClick={fetchToken}>
+              <Button color="inherit" onClick={fetchToken}>
                 Login &nbsp; <AccountCircle />
               </Button>
             ) : (
               <Button
-                color='inherit'
+                color="inherit"
                 component={Link}
                 to={`/profile/${user.id}`}
                 className={classes.linkButton}
@@ -102,46 +103,39 @@ const NavBar = () => {
                 {!isMobile && <>My Movies &nbsp;</>}
                 <Avatar
                   style={{ width: 30, height: 30 }}
-                  alt='Profile'
-                  src={
-                    `https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar_path}`
-                  }
+                  alt="Profile"
+                  src={`https://www.themoviedb.org/t/p/w64_and_h64_face${user?.avatar?.tmdb?.avatar_path}`}
                 />
               </Button>
             )}
           </div>
-          <div className={classes.searchMobile}>
-
           {isMobile && <Search />}
-          </div>
         </Toolbar>
       </AppBar>
       <div>
         <nav className={classes.drawer}>
           {isMobile ? (
             <Drawer
-              variant='temporary'
-              anchor='right'
+              variant="temporary"
+              anchor="right"
               open={mobileOpen}
-              onClose={() => setMobileOpen((prev) => !prev)}
-              classes={{ paper: classes.drawerPaper }}
+              onClose={() => setMobileOpen((prevMobileOpen) => !prevMobileOpen)}
+              classes={{ paper: classes.drawerpaper }}
               ModalProps={{ keepMounted: true }}
             >
               <Sidebar setMobileOpen={setMobileOpen} />
             </Drawer>
           ) : (
-            <Drawer
-              classes={{ paper: classes.drawerPaper }}
-              variant='permanent'
-              open
-            >
+            <Drawer classes={{ paper: classes.drawerpaper }} variant="permanent" open>
               <Sidebar setMobileOpen={setMobileOpen} />
             </Drawer>
           )}
         </nav>
       </div>
+
+
+
     </>
   );
 };
-
 export default NavBar;
